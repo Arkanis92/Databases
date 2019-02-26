@@ -1,0 +1,101 @@
+1. How do you find related data held in two separate data tables?
+
+By using a JOIN statement assuming that there is a primary key in one of them and a matching foreign key in the other data table.
+
+2. Explain, in your own words, the difference between an INNER JOIN, LEFT OUTER JOIN, and RIGHT OUTER JOIN. Give a real-world example for each.
+
+INNER JOIN - Only returns the records that the two databases have in common.
+LEFT OUTER JOIN - Returns all records from the left table and only the matching records from the right table. Returns null in place of the values of the right table where there is no matching value with the left table.
+RIGHT OUTER JOIN - Returns all records from the right table and only the matching records from the left tablle. Returns null in place of the values of the left table where there is no matching value with the left table.
+
+//Examples//
+INNER JOIN : Finding common passwords used across your accounts. This would make it easy to see what websites you use the same passwords for so you can change them.
+LEFT OUTER JOIN : finding out if certain items on a menu have been removed from year to year. The left table would be the prior year and the right table would be the current year. If an item on the menu has been removed, it will show up as null on the right table while still showing on the left table. This would make it clear which items were removed.
+RIGHT OUTER JOIN : finding out if there are new items on a menu. The left table would be the prior year's menu and the right would be the current year's menu. If an item on the menu is new, it will show null on the left table while still showing a value on the right table.
+
+3. Define primary key and foreign key. Give a real-world example for each.
+
+Primary Key - unique identifier that only exists once in a given table. Similar to the id tag in JavaScript.
+Foreign Key - unique identifier in a separate table that refers to a primary key in a different table.
+
+//Examples//
+Primary Key : Social Security Numbers differentiate people who may have the same name and live in the same general location.
+Foreign Key : Joining two separate tables, one with employee names, employee numbers, and the foreign key department number and the second with the name of the department, location, and the department number.
+
+4. Define aliasing.
+
+A technique in where you abbreviate table names. Similar in function to assigning a value in JavaScript to a shorter key so you don't have to type it out every time.'
+
+5. Change this query so that you are using aliasing:
+SELECT p.name, c.salary, c.vacation_days
+FROM professor AS p
+JOIN compensation AS c
+ON p.id = c.professor_id;
+
+6. Why would you use a NATURAL JOIN? Give a real-world example.
+
+A NATURAL JOIN is faster to type out than typing out  USING join as you don't need to specify the column names that appear in both input tables.'
+
+If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of when someone checked in with when they checked out based on the room number they're staying in with all relevant info. This would be easier and faster to execute and would give you all the information you'd need on the person without needing to check both tables.
+
+7. Using this Employee schema and data, write queries to find the following information:
+  List all employees and all shifts.
+    SELECT s.start_time, s.date, s.end_time, e.name
+    FROM employees AS e
+    JOIN shifts AS s
+    ON e.id = s.id;
+
+8. Using this Adoption schema and data, please write queries to retrieve the following information and include the results:
+  Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
+
+    SELECT v.first_name, v.last_name, d.name
+    FROM volunteers AS v
+    LEFT OUTER JOIN dogs AS d
+    ON v.foster_dog_id = d.id;
+
+  The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
+
+    SELECT adopters.first_name, adopters.last_name, cats.name, cat_adoptions.date
+    FROM cat_adoptions
+    JOIN adopters ON adopters.id = cat_adoptions.adopter_id
+    JOIN cats ON cats.id = cat_adoptions.cat_id
+
+
+  Create a list of adopters who have not yet chosen a dog to adopt.
+
+    SELECT adopters.first_name, adopters.last_name
+    FROM dog_adoptions
+    JOIN adopters ON adopters.id != dog_adoptions.adopter_id
+
+  Lists of all cats and all dogs who have not been adopted.
+
+    SELECT cats.name
+    FROM cat_adoptions
+    JOIN cats ON cats.id != cat_adoptions.cat_id;
+
+    SELECT dogs.name
+    FROM dog_adoptions
+    JOIN dogs ON dog.id != dog_adoptions.dog_id;
+
+
+  The name of the person who adopted Rosco.
+
+    SELECT adopters.first_name, adopters.last_name
+    FROM dog_adoptions
+    JOIN adopters ON adopters.id = dog_adoptions.adopter_id;
+
+
+9. Using this Library schema and data, write queries applying the following scenarios and include the results:
+  To determine if the library should buy more copies of a given book,
+  please provide the names and position, in order, of all of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
+
+  SELECT patrons.name, patrons.id
+  FROM holds
+  JOIN books ON books.isbn = holds.isbn
+  WHEN ;
+
+  List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
+
+    SELECT patrons.name, books.title
+    FROM patrons
+    LEFT OUTER JOIN
