@@ -27,10 +27,10 @@ Foreign Key : Joining two separate tables, one with employee names, employee num
 A technique in where you abbreviate table names. Similar in function to assigning a value in JavaScript to a shorter key so you don't have to type it out every time.'
 
 5. Change this query so that you are using aliasing:
-SELECT p.name, c.salary, c.vacation_days
-FROM professor AS p
-JOIN compensation AS c
-ON p.id = c.professor_id;
+  SELECT p.name, c.salary, c.vacation_days
+  FROM professor AS p
+  JOIN compensation AS c
+  ON p.id = c.professor_id;
 
 6. Why would you use a NATURAL JOIN? Give a real-world example.
 
@@ -39,21 +39,21 @@ A NATURAL JOIN is faster to type out than typing out  USING join as you don't ne
 If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of when someone checked in with when they checked out based on the room number they're staying in with all relevant info. This would be easier and faster to execute and would give you all the information you'd need on the person without needing to check both tables.
 
 7. Using this Employee schema and data, write queries to find the following information:
-  List all employees and all shifts.
-    SELECT s.start_time, s.date, s.end_time, e.name
-    FROM employees AS e
-    JOIN shifts AS s
-    ON e.id = s.id;
+  a. List all employees and all shifts.
+      SELECT s.start_time, s.date, s.end_time, e.name
+      FROM employees AS e
+      JOIN shifts AS s
+      ON e.id = s.id;
 
 8. Using this Adoption schema and data, please write queries to retrieve the following information and include the results:
-  Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
+  a. Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
 
     SELECT v.first_name, v.last_name, d.name
     FROM volunteers AS v
     LEFT OUTER JOIN dogs AS d
     ON v.foster_dog_id = d.id;
 
-  The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
+  b. The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
 
     SELECT adopters.first_name, adopters.last_name, cats.name, cat_adoptions.date
     FROM cat_adoptions
@@ -61,13 +61,13 @@ If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of
     JOIN cats ON cats.id = cat_adoptions.cat_id
 
 
-  Create a list of adopters who have not yet chosen a dog to adopt.
+  c. Create a list of adopters who have not yet chosen a dog to adopt.
 
     SELECT adopters.first_name, adopters.last_name
     FROM dog_adoptions
     JOIN adopters ON adopters.id != dog_adoptions.adopter_id
 
-  Lists of all cats and all dogs who have not been adopted.
+  d. Lists of all cats and all dogs who have not been adopted.
 
     SELECT cats.name
     FROM cat_adoptions
@@ -78,7 +78,7 @@ If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of
     JOIN dogs ON dog.id != dog_adoptions.dog_id;
 
 
-  The name of the person who adopted Rosco.
+  e. The name of the person who adopted Rosco.
 
     SELECT adopters.first_name, adopters.last_name
     FROM dog_adoptions
@@ -86,7 +86,7 @@ If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of
 
 
 9. Using this Library schema and data, write queries applying the following scenarios and include the results:
-  To determine if the library should buy more copies of a given book,
+  a. To determine if the library should buy more copies of a given book,
   please provide the names and position, in order, of all of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
 
   SELECT patrons.name, patrons.id
@@ -94,7 +94,7 @@ If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of
   JOIN books ON books.isbn = holds.isbn
   WHEN ;
 
-  List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
+  b. List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
 
     SELECT patrons.name, books.title
     FROM patrons
