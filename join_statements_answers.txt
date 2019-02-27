@@ -59,23 +59,26 @@ If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of
     FROM cat_adoptions
     JOIN adopters ON adopters.id = cat_adoptions.adopter_id
     JOIN cats ON cats.id = cat_adoptions.cat_id
+    WHERE cat_adoptions.date > NOW() - INTERVAL '30 days';
 
 
   c. Create a list of adopters who have not yet chosen a dog to adopt.
 
     SELECT adopters.first_name, adopters.last_name
     FROM dog_adoptions
-    JOIN adopters ON adopters.id != dog_adoptions.adopter_id
+    JOIN adopters ON adopters.id != dog_adoptions.adopter_id;
 
   d. Lists of all cats and all dogs who have not been adopted.
 
     SELECT cats.name
-    FROM cat_adoptions
-    JOIN cats ON cats.id != cat_adoptions.cat_id;
+    FROM cats
+    LEFT JOIN cat_adoptions ON cat_adoptions.cat_id = cats.id
+    WHERE cat_adoptions.cat_id IS NULL;
 
     SELECT dogs.name
-    FROM dog_adoptions
-    JOIN dogs ON dog.id != dog_adoptions.dog_id;
+    FROM dogs
+    LEFT JOIN dog_adoptions ON dog_adoptions.dog_id = dogs.id
+    WHERE dog_adoptions.dog_id IS NULL;
 
 
   e. The name of the person who adopted Rosco.
@@ -89,13 +92,20 @@ If you were a hotel manager, you could use a NATURAL JOIN to merge the tables of
   a. To determine if the library should buy more copies of a given book,
   please provide the names and position, in order, of all of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
 
-  SELECT patrons.name, patrons.id
-  FROM holds
-  JOIN books ON books.isbn = holds.isbn
-  WHEN ;
+    Need:   patrons <- holds -> books
+
+    SELECT p.name, h.rank
+    FROM patrons p
+    JOIN holds h ON h.patron_id = p.id
+    JOIN books b ON b.isbn = h.isbn
+    WHERE b.title = 'Advanced Potion-Making'
+    ORDER BY h.rank;
 
   b. List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
 
-    SELECT patrons.name, books.title
-    FROM patrons
-    LEFT OUTER JOIN
+    Need: patrons <- transactions -> books
+
+    SELECT p.name, b.title
+    FROM patrons p
+    LEFT OUTER JOIN transactions t ON t.patron_id = p.id AND checked_in_date is NULL
+    LEFT OUTER JOIN books b ON b.isbn = t.isbn;
