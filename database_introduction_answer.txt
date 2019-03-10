@@ -77,8 +77,8 @@ What are all of the columns from the payments table where the payee was 'Mega Fo
 
   c. All the columns for the user ID equal to 4.
 
-  SELECT *
+  SELECT users.userid, users.name, users.email, users.signup
   FROM users
-  WHERE userID = 4;
+  WHERE userid = 4;
 
-  Brandy Boolean bboolean@nasa.gov 1999-10-15
+  4 Brandy Boolean bboolean@nasa.gov 1999-10-15
