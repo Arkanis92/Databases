@@ -1,9 +1,9 @@
 1. What data types do each of these values represent?
   a. "A Clockwork Orange" - string
   b. 42 - integer
-  c. 09/02/1945 - integer
+  c. 09/02/1945 - date
   d. 98.7 - float
-  e. $15.99 - float
+  e. $15.99 - money
 
 
 2. Explain when a database would be used. Explain when a text file would be used.
@@ -59,16 +59,20 @@ What are all of the columns from the payments table where the payee was 'Mega Fo
 8. Given this users table, write SQL queries using the following criteria and include the output:
   a. The email and sign-up date for the user named DeAndre Data.
 
-  SELECT email, date
+  SELECT email, signup
   FROM users
   WHERE name = 'DeAndre Data';
+
+  datad@comcast.net 2008-01-20
 
 
   b. The user ID for the user with email 'aleesia.algorithm@uw.edu'.
 
-  SELECT userID
+  SELECT userid
   FROM users
   WHERE email = 'aleesia.algorithm@uw.edu';
+
+  1
 
 
   c. All the columns for the user ID equal to 4.
@@ -76,3 +80,5 @@ What are all of the columns from the payments table where the payee was 'Mega Fo
   SELECT *
   FROM users
   WHERE userID = 4;
+
+  Brandy Boolean bboolean@nasa.gov 1999-10-15
